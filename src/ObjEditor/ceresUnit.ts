@@ -1,4 +1,4 @@
-import { CeresCurrentMap, currentMap } from "core/ceresDefs";
+import { CeresCurrentMap, currentMap } from "../core/ceresDefs";
 
 export class CeresUnit {
   private u: any;
