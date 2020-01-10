@@ -1,4 +1,7 @@
-import { CeresCurrentMap, currentMap } from "../core/ceresDefs";
+import { CeresCurrentMap } from "../core/ceresDefs";
+import { UnitFieldRawCodes } from '../core/unitFieldMetadata';
+
+declare var currentMap: CeresCurrentMap;
 
 export class CeresUnit {
   private u: any;

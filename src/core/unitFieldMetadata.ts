@@ -1,4 +1,4 @@
-namespace UnitFieldRawCodes {
+export namespace UnitFieldRawCodes {
 
   export enum Abilities {
     Normal = "uabi",
