@@ -1,1 +1,2 @@
-// TODO: import and export anything that should be exposed?
+export * from './core/index';
+export * from './ObjEditor/index';
