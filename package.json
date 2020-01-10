@@ -1,0 +1,17 @@
+{
+  "name": "wc3-ts-ceres",
+  "version": "1.0.0",
+  "description": "TODO",
+  "author": "ttay24",
+  "license": "MIT",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tslint -c tslint.json -p tsconfig.json"
+  },
+  "devDependencies": {
+    "lua-types": "^2.6.1",
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.4",
+    "war3-types": "latest"
+  }
+}
