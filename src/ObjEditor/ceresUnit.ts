@@ -1,10 +1,8 @@
-import { CeresCurrentMap } from "../core/ceresDefs";
-import { UnitFieldRawCodes } from '../core/unitFieldMetadata';
-
-declare var currentMap: CeresCurrentMap;
+import { UnitFieldRawCodes } from '../war3/unitFieldMetadata';
+import { ObjectDefinition, currentMap } from '../ceres/ceresDefs';
 
 export class CeresUnit {
-  private u: any;
+  private u: ObjectDefinition;
   private unitId: string;
 
   constructor(unitId: string, baseUnitId: string) {
@@ -19,7 +17,7 @@ export class CeresUnit {
   }
 
   set name(n: string) { 
-    this.u[UnitFieldRawCodes.Text.Name] = n; 
+    this.u[UnitFieldRawCodes.Text.Name] = n;
   }
   
   get name(): string { 
