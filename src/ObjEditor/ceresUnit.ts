@@ -1,13 +1,10 @@
 import { UnitFieldRawCodes } from '../war3/unitFieldMetadata';
-import { ObjectDefinition, currentMap } from '../ceres/ceresDefs';
 
 export class CeresUnit {
-  private u: ObjectDefinition;
+  private u: WarObjects;
   private unitId: string;
 
   constructor(unitId: string, baseUnitId: string) {
-    // test
-    print("created unit");
     this.unitId = unitId;
     this.u = currentMap.objects.unit[baseUnitId].clone();
   }
@@ -16,12 +13,47 @@ export class CeresUnit {
     currentMap.objects.unit[this.unitId] = this.u;
   }
 
-  set name(n: string) { 
+  //#region Abilities
+  //#endregion
+
+  //#region Art
+  //#endregion
+
+  //#region Combat
+  //#endregion
+
+  //#region Editor
+  //#endregion
+
+  //#region Movement
+  //#endregion
+
+  //#region Pathing
+  //#endregion
+
+  //#region Sound
+  //#endregion
+
+  //#region Stats
+  //#endregion
+
+  //#region Techtree
+  //#endregion
+
+  //#region Text
+
+  setName(n: string): CeresUnit { 
     this.u[UnitFieldRawCodes.Text.Name] = n;
+    return this;
   }
   
-  get name(): string { 
+  getName(): string { 
     return this.u[UnitFieldRawCodes.Text.Name];
   }
+
+  //#endregion
+
+  //#region Misc
+  //#endregion
 
 }
