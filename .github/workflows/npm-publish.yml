@@ -1,14 +1,23 @@
 name: Node CI
 
-on: [push]
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the master branch
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+    branches:
+      - master
+      - develop
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
         node-version: 12
@@ -18,6 +27,7 @@ jobs:
         npm run build --if-present
         
   publish-npm:
+    if: contains(github.ref, 'master') && github.event_name == 'push'
     needs: build
     runs-on: ubuntu-latest
     steps:
