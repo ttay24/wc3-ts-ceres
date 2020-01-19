@@ -7,12 +7,14 @@
   "main": "src/index.ts",
   "scripts": {
     "build": "tslint -c tslint.json -p tsconfig.json",
-    "gen-doc": "node_modules/.bin/typedoc --out ./docs ./src"
+    "gen-doc": "node_modules/.bin/typedoc --plugin typedoc-plugin-markdown --theme docusaurus --includeDeclarations --excludeExternals --out ./docs ./src/typedoc.ts",
+    "gen-html": "node_modules/.bin/typedoc --plugin none --includeDeclarations --excludeExternals --out ./html ./src"
   },
   "devDependencies": {
     "lua-types": "^2.6.1",
     "tslint": "^5.20.1",
     "typedoc": "^0.16.7",
+    "typedoc-plugin-markdown": "^2.2.16",
     "typescript": "^3.7.4",
     "war3-types": "latest"
   }
