@@ -1,4 +1,4 @@
-class BaseObject {
+export class BaseObject {
   protected obj: WarObjects;
   protected objectId: string;
   protected baseObjectId: string;
