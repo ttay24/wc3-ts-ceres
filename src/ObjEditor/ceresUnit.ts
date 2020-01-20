@@ -1,4 +1,5 @@
 import { UnitFieldRawCodes } from '../war3/unitFieldMetadata';
+import { BaseObject } from './baseObject';
 
 export class CeresUnit extends BaseObject {
 
