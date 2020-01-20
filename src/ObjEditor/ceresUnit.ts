@@ -1,16 +1,14 @@
 import { UnitFieldRawCodes } from '../war3/unitFieldMetadata';
 
-export class CeresUnit {
-  private u: WarObjects;
-  private unitId: string;
+export class CeresUnit extends BaseObject {
+
+  /**
+   * Expose the object (unit data) so its fields can be set
+   */
+  get u(): WarObjects { return this.obj; }
 
   constructor(unitId: string, baseUnitId: string) {
-    this.unitId = unitId;
-    this.u = currentMap.objects.unit[baseUnitId].clone();
-  }
-
-  public compile(): void {
-    currentMap.objects.unit[this.unitId] = this.u;
+    super(unitId, baseUnitId);
   }
 
   //#region Abilities
@@ -42,13 +40,20 @@ export class CeresUnit {
 
   //#region Text
 
+  /**
+   * Sets the name of the unit
+   * @param n the name of the unit
+   */
   setName(n: string): CeresUnit { 
-    this.u[UnitFieldRawCodes.Text.Name] = n;
+    this.obj[UnitFieldRawCodes.Text.Name] = n;
     return this;
   }
   
+  /**
+   * Returns back the name of the unit
+   */
   getName(): string { 
-    return this.u[UnitFieldRawCodes.Text.Name];
+    return this.obj[UnitFieldRawCodes.Text.Name];
   }
 
   //#endregion
