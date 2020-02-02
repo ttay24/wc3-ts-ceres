@@ -1,3 +1,5 @@
+/** @noselfinfile */
+
 /*
     A note about compiletime, runtime and macros:
 
@@ -61,10 +63,7 @@ declare namespace ceres {
    * live-reloaded.
    * @runtime
    */
-  function addHook(
-      name: "reload::before" | "reload::after",
-      callback: () => void
-  ): void
+  function addHook(name: "reload::before" | "reload::after", callback: () => void): void
 
   /**
    * Simple alternative to `pcall`, will safely call the
@@ -72,10 +71,7 @@ declare namespace ceres {
    * or return the function result if succeeded.
    * @runtime
    */
-  function safeCall<Args extends any[], R>(
-      f: (...args: Args) => R,
-      ...args: Args
-  ): R | null
+  function safeCall<Args extends any[], R>(f: (...args: Args) => R, ...args: Args): R
 
   /**
    * Wraps the provided function in a `safeCall`, such that
@@ -83,9 +79,7 @@ declare namespace ceres {
    * errors will be handled by `safeCall`.
    * @runtime
    */
-  function wrapSafeCall<Args extends any[], R>(
-      f: (...args: Args) => R
-  ): (...args: Args) => R
+  function wrapSafeCall<C extends (...args: any[]) => any>(f: C): C
 
   /**
    * Adds a hook to be called after the map script has been built by Ceres.
@@ -93,10 +87,7 @@ declare namespace ceres {
    * `name` is used to distinguish between hooks when building maps multiple times.
    * @compiletime
    */
-  function addPostScriptBuildHook(
-      name: string,
-      callback: (...args: any[]) => void
-  ): void
+  function addPostScriptBuildHook(name: string, callback: (...args: any[]) => void): void
 
   /**
    * Adds a hook to be called after the map has been built by Ceres.
@@ -104,10 +95,7 @@ declare namespace ceres {
    * `name` is used to distinguish between hooks when building maps multiple times.
    * @compiletime
    */
-  function addPostMapBuildHook(
-      name: string,
-      callback: (...args: any[]) => void
-  ): void
+  function addPostMapBuildHook(name: string, callback: (...args: any[]) => void): void
 
   /**
    * Adds a hook to be called after the game has been launched by Ceres.
@@ -115,10 +103,7 @@ declare namespace ceres {
    * `name` is used to distinguish between hooks when building maps multiple times.
    * @compiletime
    */
-  function addPostRunHook(
-      name: string,
-      callback: (...args: any[]) => void
-  ): void
+  function addPostRunHook(name: string, callback: (...args: any[]) => void): void
 
   /**
    * Opens a WC3 map at the specified path.
@@ -138,6 +123,13 @@ declare namespace ceres {
    * @tuplereturn
    */
   function compileScript(options: CompileOptions): string | [false, string]
+
+  /**
+   * Builds a map with the given command.
+   *
+   * @compiletime
+   */
+  function buildMap(command: BuildCommand): BuildArtifact | false
 
   /**
    * Launches WC3 with the map at the specified path, and
@@ -162,10 +154,7 @@ declare namespace fs {
    * @compiletime
    * @tuplereturn
    */
-  function writeFile(
-      path: string,
-      content: string
-  ): undefined | [false, string]
+  function writeFile(path: string, content: string): undefined | [false, string]
 
   /**
    * Copies one directory into another, recursively. Returns true if successful,
@@ -230,10 +219,7 @@ declare namespace fs {
    * @compiletime
    * @tuplereturn
    */
-  function watch(
-      path: string,
-      callback: (data: string) => void
-  ): [false, string]
+  function watchFile(path: string, callback: (data: string) => void): [false, string]
 }
 
 declare namespace mpq {
@@ -250,6 +236,47 @@ declare namespace mpq {
    * @tuplereturn
    */
   function open(path: string): MpqViewer | [false, string]
+}
+
+/**
+* A map build request.
+* Encapsulates possible parameters to ask of Ceres when building a map.
+*/
+interface BuildCommand {
+  /**
+   * Path to the map file. Can be omitted to make a script-only, mapless compilation.
+   */
+  input?: string
+
+  /**
+   * Type of artifact to produce.
+   */
+  output: "script" | "mpq" | "dir"
+
+  /**
+   * Whether to retain the original map script during building.
+   */
+  retainMapScript: boolean
+}
+
+/**
+* A build artifact produced by a map compilation step.
+*/
+interface BuildArtifact {
+  /**
+   * Type of artifact produced.
+   */
+  type: "script" | "mpq" | "dir"
+
+  /**
+   * Filesystem path to the produced artifact.
+   */
+  path: string
+
+  /**
+   * If the produced artifact was a script, this will be its contents.
+   */
+  content?: string
 }
 
 /**
@@ -337,10 +364,7 @@ declare interface MpqBuilder {
    *
    * @tuplereturn
    */
-  addFromMpq(
-      other: MpqViewer,
-      options?: MpqAddOptions
-  ): true | [false, string]
+  addFromMpq(other: MpqViewer, options?: MpqAddOptions): true | [false, string]
 
   /**
    * Builds and writes this archive to the specified path.
@@ -424,14 +448,7 @@ declare interface CompileOptions {
   mapScript: string
 }
 
-type objectType =
-  | "unit"
-  | "item"
-  | "ability"
-  | "destructable"
-  | "doodad"
-  | "buff"
-  | "upgrade"
+type objectType = "unit" | "item" | "ability" | "destructable" | "doodad" | "buff" | "upgrade"
 type objectExt = "w3a" | "w3t" | "w3u" | "w3b" | "w3d" | "w3h" | "w3q"
 
 /**
@@ -616,7 +633,17 @@ declare interface WarMap {
   commitObjectStorage(objects: WarObjects): void
 }
 
-declare const currentMap: WarMap;
+/**
+* Last build command issued.
+* @compiletime
+*/
+declare const lastBuildCommand: BuildCommand
+
+/**
+* Currently compiling map, if any.
+* @compiletime
+*/
+declare const currentMap: WarMap | undefined
 
 /**
 * Logs the provided arguments to stderr.
@@ -651,9 +678,9 @@ declare interface MacroFunction {
 * If the result evaluated to nothing, then nothing is injected into the source.
 * @macro
 */
-declare function compiletime<
-  R extends string | number | object | null | undefined
->(arg: R | (() => R)): R
+declare function compiletime<R extends string | number | object | null | undefined>(
+  arg: R | (() => R)
+): R
 
 /**
 * Reads the file at `path`, and if it exists, includes its contents
@@ -671,5 +698,6 @@ declare function include(path: string): string
 * After the registration, any raw function call in the form of `name`()
 * will be interpreted as a macro call, and Ceres will call the
 * specified handler function.
+* @macro
 */
 declare function macro_define(name: string, handler: MacroFunction): void
