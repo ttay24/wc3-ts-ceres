@@ -8,7 +8,7 @@ export class CeresItem extends BaseObject {
   get i(): WarObjects { return this.obj; }
 
   constructor(itemId: string, baseItemId: string) {
-    super('item', itemId, baseItemId);
+    super(currentMap.objects.item, itemId, baseItemId);
   }
 
 }

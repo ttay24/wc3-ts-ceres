@@ -8,7 +8,7 @@ export class CeresDestructible extends BaseObject {
   get d(): WarObjects { return this.obj; }
 
   constructor(destructibleId: string, baseDestructibleId: string) {
-    super('destructable', destructibleId, baseDestructibleId);
+    super(currentMap.objects.destructable, destructibleId, baseDestructibleId);
   }
 
 }

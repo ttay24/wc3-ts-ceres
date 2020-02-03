@@ -643,7 +643,7 @@ declare const lastBuildCommand: BuildCommand
 * Currently compiling map, if any.
 * @compiletime
 */
-declare const currentMap: WarMap | undefined
+declare const currentMap: WarMap;
 
 /**
 * Logs the provided arguments to stderr.

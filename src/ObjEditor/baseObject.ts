@@ -3,17 +3,17 @@ export class BaseObject {
   protected objectId: string;
   protected baseObjectId: string;
 
-  private objKey: string;
+  private objectType: WarObjects;
 
-  constructor(objKey: string, objId: string, baseObjId: string) {
+  constructor(objectType: WarObjects, objId: string, baseObjId: string) {
     this.objectId = objId;
     this.baseObjectId = baseObjId;
-    this.objKey = objKey;
-    this.obj = currentMap.objects[this.objKey][baseObjId].clone();
+    this.objectType = objectType;
+    this.obj = objectType[baseObjId].clone();
   }
 
   public compile(): void {
-    currentMap.objects[this.objKey][this.objectId] = this.obj;
+    this.obj[this.objectId] = this.obj;
   }
 
 }
