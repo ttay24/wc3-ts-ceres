@@ -8,7 +8,7 @@ export class CeresAbility extends BaseObject {
   get a(): WarObjects { return this.obj; }
 
   constructor(abilityId: string, baseAbilityId: string) {
-    super(abilityId, baseAbilityId);
+    super('ability', abilityId, baseAbilityId);
   }
 
 }
