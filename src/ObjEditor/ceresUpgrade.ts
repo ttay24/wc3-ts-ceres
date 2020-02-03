@@ -8,7 +8,7 @@ export class CeresUpgrade extends BaseObject {
   get u(): WarObjects { return this.obj; }
 
   constructor(upgradeId: string, baseUpgradeId: string) {
-    super('upgrade', upgradeId, baseUpgradeId);
+    super(currentMap.objects.upgrade, upgradeId, baseUpgradeId);
   }
 
 }

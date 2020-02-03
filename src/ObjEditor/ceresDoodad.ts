@@ -8,7 +8,7 @@ export class CeresDoodad extends BaseObject {
   get d(): WarObjects { return this.obj; }
 
   constructor(doodadId: string, baseDoodadId: string) {
-    super('doodad', doodadId, baseDoodadId);
+    super(currentMap.objects.doodad, doodadId, baseDoodadId);
   }
 
 }

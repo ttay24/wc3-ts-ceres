@@ -8,7 +8,7 @@ export class CeresBuff extends BaseObject {
   get b(): WarObjects { return this.obj; }
 
   constructor(buffId: string, baseBuffId: string) {
-    super('buff', buffId, baseBuffId);
+    super(currentMap.objects.buff, buffId, baseBuffId);
   }
 
 }
