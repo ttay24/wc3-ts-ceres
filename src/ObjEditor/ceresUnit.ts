@@ -13,6 +13,30 @@ export class CeresUnit extends BaseObject {
   }
 
   //#region Abilities
+
+  /**
+   * Sets the normal abilities for a unit
+   * @param abilityIds the IDs of the abilities for this unit
+   */
+  setNormalAbilities(abilityIds: string[]): CeresUnit {
+    this.obj[UnitFieldRawCodes.Abilities.Normal] = abilityIds.join(',');
+    return this;
+  }
+
+  /**
+   * Sets the hero abilities for a unit
+   * @param abilityIds the IDs of the abilities for this hero
+   */
+  setHeroAbilities(abilityIds: string[]): CeresUnit {
+    this.obj[UnitFieldRawCodes.Abilities.Hero] = abilityIds.join(',');
+    return this;
+  }
+
+  setDefaultActiveAbility(defaultActiveAbilityId: string): CeresUnit {
+    this.obj[UnitFieldRawCodes.Abilities.DefaultActiveAbility] = defaultActiveAbilityId;
+    return this;
+  }
+
   //#endregion
 
   //#region Art
