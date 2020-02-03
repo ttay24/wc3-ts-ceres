@@ -19,7 +19,8 @@ export class CeresUnit extends BaseObject {
    * @param abilityIds the IDs of the abilities for this unit
    */
   setNormalAbilities(abilityIds: string[]): CeresUnit {
-    this.obj[UnitFieldRawCodes.Abilities.Normal] = abilityIds.join(',');
+    let abilityNums = abilityIds.map(a => FourCC(a));
+    this.obj[UnitFieldRawCodes.Abilities.Normal] = abilityNums.join(',');
     return this;
   }
 
@@ -28,7 +29,8 @@ export class CeresUnit extends BaseObject {
    * @param abilityIds the IDs of the abilities for this hero
    */
   setHeroAbilities(abilityIds: string[]): CeresUnit {
-    this.obj[UnitFieldRawCodes.Abilities.Hero] = abilityIds.join(',');
+    let abilityNums = abilityIds.map(a => FourCC(a));
+    this.obj[UnitFieldRawCodes.Abilities.Hero] = abilityNums.join(',');
     return this;
   }
 
