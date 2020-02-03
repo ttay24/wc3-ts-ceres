@@ -9,7 +9,7 @@ export class CeresUnit extends BaseObject {
   get u(): WarObjects { return this.obj; }
 
   constructor(unitId: string, baseUnitId: string) {
-    super(unitId, baseUnitId);
+    super('unit', unitId, baseUnitId);
   }
 
   //#region Abilities
