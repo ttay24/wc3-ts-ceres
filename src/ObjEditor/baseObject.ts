@@ -13,7 +13,7 @@ export class BaseObject {
   }
 
   public compile(): void {
-    this.obj[this.objectId] = this.obj;
+    this.objectType[this.objectId] = this.obj;
   }
 
 }
