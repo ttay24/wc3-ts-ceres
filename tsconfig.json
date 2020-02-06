@@ -28,7 +28,8 @@
     ]
   },
   "include": [
-    "src"
+    "src",
+    "node_modules"
   ],
   "tstl": {
     "luaTarget": "5.3",
