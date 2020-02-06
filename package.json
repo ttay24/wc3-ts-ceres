@@ -1,6 +1,6 @@
 {
   "name": "wc3-ts-ceres",
-  "version": "3.1.7",
+  "version": "3.2.0",
   "description": "TODO",
   "author": "ttay24",
   "license": "MIT",
@@ -19,5 +19,8 @@
     "typescript": "^3.7.4",
     "typescript-to-lua": "^0.31.0",
     "war3-types": "latest"
+  },
+  "dependencies": {
+    "ceres-decl": "^1.0.1"
   }
 }
